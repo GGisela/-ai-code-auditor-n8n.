@@ -1,0 +1,121 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "cb247e9f-90b5-4ad7-992d-38ea82a0e8b2",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "path": "prueba-ia",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        176,
+        0
+      ],
+      "id": "1094fc0e-94f3-45f3-b3e9-b94e570a90ac",
+      "name": "Webhook",
+      "webhookId": "6a72155b-e8d0-413e-94e5-4e044559147c"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        736,
+        0
+      ],
+      "id": "7960eab1-6a2a-40ac-8199-32f3fafc4300",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Analizá este código: {{ $json.query.codigo}}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        384,
+        0
+      ],
+      "id": "60fd96dc-691a-4e40-bce2-85004af98431",
+      "name": "Actuá como una Desarrolladora Senior experta en Java y .NET. Analizá el siguiente código que te enví",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "bx4ME6FRRBuMnBbL",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        []
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Actuá como una Desarrolladora Senior experta en Java y .NET. Analizá el siguiente código que te enví",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Actuá como una Desarrolladora Senior experta en Java y .NET. Analizá el siguiente código que te enví": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "8e36755e-139f-4b52-908f-dc30eded9f81",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c9b988d14953fe0f92b39b6600e8a3db54b13ae747d37c991b3522629fe8731c"
+  },
+  "id": "ozyVJ3not01_YMrgWMzwR",
+  "tags": []
+}
